@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "login": "Lorem",
+      "loginPassword": "nihil",
+      "fullName": "Lorem Ipsum",
+      "eMail": "lorem.ipsum@gmail.com",
+      "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      "storedPasswords": [
+        {
+          "id": 1,
+          "appointment": "lorem.1.ipsum@gmail.com",
+          "password": "dol#r-$it-@met"
+        },
+        {
+          "id": 2,
+          "appointment": "lorem.2.ipsum@gmail.com",
+          "password": "dol#r-$it-@met"
+        },
+        {
+          "id": 3,
+          "appointment": "lorem.3.ipsum@gmail.com",
+          "password": "dol#r-$it-@met"
+        },
+        {
+          "id": 4,
+          "appointment": "lorem.4.ipsum@gmail.com",
+          "password": "dol#r-$it-@met"
+        }
+      ]
+    }
+  ]
+}
