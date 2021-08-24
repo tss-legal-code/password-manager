@@ -1,9 +1,12 @@
 import { SET_RECORD_BEING_CREATED, SET_RECORD_BEING_UPDATED, UNSET_RECORD_BEING_CREATED, UNSET_RECORD_BEING_UPDATED } from "./types"
 
 const initialState = {
-    userID: null,
+    userId: null,
+    userLogin: null,
+    userPassword: null,
+    userEmail: null,
     idOfRecordBeingUpdated: null,
-    isRecordBeingCreated: false
+    isRecordBeingCreated: false, 
 }
 
 const appReducer = (state = initialState, action) => {
@@ -30,16 +33,7 @@ const appReducer = (state = initialState, action) => {
         // case LOGOUT:
         //     return { ...state, userID: null}
 
-        // case SHOW_ALERT
-        //         return { ...state, alertText: action.payload}
-
-        // case HIDE_ALERT
-        //         return { ...state, alertText: null}
-
-
-
         default:
-            console.log('using default state')
             return state
     }
 }

@@ -1,13 +1,7 @@
-// export const LOGIN = "APP/LOGIN"
-// export const REGISTER = "APP/REGISTER"
-// export const LOGOUT = "APP/LOGOUT"
-
-// export const SHOW_ALERT = "APP/SHOW_ALERT"
-// export const HIDE_ALERT = "APP/HIDE_ALERT"
+//in order of implementation ^_^
 
 export const SET_RECORD_BEING_UPDATED = "APP/SET_RECORD_BEING_UPDATED"           
 export const UNSET_RECORD_BEING_UPDATED = "APP/UNSET_RECORD_BEING_UPDATED"
-
     
 export const DELETE_RECORD = "PASSWORD/DELETE_RECORD"
 
@@ -18,3 +12,6 @@ export const UNSET_RECORD_BEING_CREATED = "APP/UNSET_RECORD_BEING_CREATED"
 
 export const CREATE_RECORD = "PASSWORD/CREATE_RECORD"
 
+// export const LOGIN = "APP/LOGIN"
+// export const REGISTER = "APP/REGISTER"
+// export const LOGOUT = "APP/LOGOUT"

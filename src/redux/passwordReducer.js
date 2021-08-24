@@ -32,15 +32,13 @@ const passwordReducer = (state = initialState, action) => {
 
         case CREATE_RECORD:
             return {...state, passwords: state.passwords.concat(action.payload)}
-            // return state // { ...state, action.payload,  }
 
         case UPDATE_RECORD:
-            console.log('updated: ',action.payload)
-            console.log(`state:`, state)
             return {...state, passwords: state.passwords.map(record => record.id === action.payload.id ? action.payload : record )}
 
         case DELETE_RECORD:
             return {...state, passwords: state.passwords.filter(record=>record.id !== action.payload)}
+
         default:
             return state
     }

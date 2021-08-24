@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setRecordBeingCreated } from "../redux/actions"
 import CreateUpdateRecord from "./CreateUpdateRecord"
 import Record from './Record'
+import {SignupForm} from './Formic'
 
 const Table = () => {
 
@@ -39,9 +40,9 @@ const Table = () => {
           <button className="btn btn-primary border" onClick={() => dispatch(setRecordBeingCreated())}>create record</button>
         </div>
       </div>
-
+      
+      {/* show forms depending on state of variables in store */}
       {idOfRecordBeingUpdated && <CreateUpdateRecord />}
-
       {isRecordBeingCreated && <CreateUpdateRecord />}
 
     </>
