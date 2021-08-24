@@ -1,14 +1,16 @@
 import { useSelector } from "react-redux"
 import { CREATE_RECORD, DELETE_RECORD, SET_RECORD_BEING_CREATED, SET_RECORD_BEING_UPDATED, UNSET_RECORD_BEING_CREATED, UNSET_RECORD_BEING_UPDATED, UPDATE_RECORD } from "./types"
 
-// view update  password page
 export const setRecordBeingUpdated = (id) => {
-    console.log(`id:::`, id)
-    return {
-        type: SET_RECORD_BEING_UPDATED,
-        payload: id
+
+    return (dispatch) => {
+        dispatch(unsetRecordBeingCreated())
+        dispatch({
+            type: SET_RECORD_BEING_UPDATED,
+            payload: id
+        })
     }
-}
+    }
 
 export const unsetRecordBeingUpdated = () => {
     return {
@@ -39,9 +41,11 @@ export const deleteRecord = (id) => {
 
 
 export const setRecordBeingCreated = () => {
-    alert("in a minute we will create record")
-    return {
-        type: SET_RECORD_BEING_CREATED,
+    return (dispatch) => {
+        dispatch(unsetRecordBeingUpdated())
+        dispatch({
+            type: SET_RECORD_BEING_CREATED,
+        })
     }
 }
 
@@ -51,8 +55,13 @@ export const unsetRecordBeingCreated = () => {
     }
 }
 
-export const createRecord = () => {
-    return {
-        type: SET_RECORD_BEING_CREATED,
+export const createRecord = (payload) => {
+
+    return (dispatch) => {
+        dispatch(unsetRecordBeingCreated())
+        dispatch({
+            type: CREATE_RECORD,
+            payload: payload,
+        })
     }
 }
