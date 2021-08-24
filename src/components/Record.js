@@ -22,6 +22,8 @@ const Record = ({ record, tableOrderNumber }) => {
     }
 
     useEffect(() => {
+        // // for purposes of render of actual values after updating and saving them
+        // this magick trick lets view revealed password after just it was updated (causes warning to console and disappears after first refresh)
         setRenderedAsPassword(
             renderedAsPassword === passwordPlaceholder
                 ? passwordPlaceholder

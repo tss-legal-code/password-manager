@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { createRecord, deleteRecord, unsetRecordBeingCreated, unsetRecordBeingUpdated, updateRecord } from "../redux/actions"
+import { createRecord, unsetRecordBeingCreated, unsetRecordBeingUpdated, updateRecord } from "../redux/actions"
 
 
 const CreateUpdateRecord = () => {
@@ -19,7 +19,7 @@ const CreateUpdateRecord = () => {
     const idOfRecordBeingUpdated = useSelector(state => state.app.idOfRecordBeingUpdated)
     const currentRecord = useSelector(state => state.password.passwords.filter(record => record.id === idOfRecordBeingUpdated))[0]
 
-    // for purposes of render of actual values 
+    // for purposes of render of actual values after updating and saving them
     useEffect(() => {
         if (idOfRecordBeingUpdated) {
             setTempAppointment(currentRecord.appointment)
@@ -50,21 +50,10 @@ const CreateUpdateRecord = () => {
         dispatch(unsetRecordBeingCreated())
     }
 
-
-
-
-
-
-
-
     const submitUnsetRecordBeingUpdated = (e) => {
         e.preventDefault()
         dispatch(unsetRecordBeingUpdated())
     }
-    // const submitDeleteRecord = (e, id) => {
-    //     e.preventDefault()
-    //     dispatch(deleteRecord(id))
-    // }
 
     const submitUpdateRecord = (e) => {
         e.preventDefault()
@@ -81,14 +70,9 @@ const CreateUpdateRecord = () => {
 
     }
 
-
-
     //functiona specific to action or updata/create
     const handleSave = isRecordBeingCreated ? submitCreateRecord : submitUpdateRecord
     const handleCancel = isRecordBeingCreated ? submitUnsetRecordBeingCreated : submitUnsetRecordBeingUpdated
-
-
-
 
     return (
         <>
@@ -103,8 +87,6 @@ const CreateUpdateRecord = () => {
                     <div className="col text-center">updating record</div>
                 </div>
             )}
-
-
 
             <div className="row">
                 <form>

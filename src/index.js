@@ -11,7 +11,15 @@ import thunk from "redux-thunk"
 
 // components // css
 import App from './App';
-import './index.css';
+import { checkIfStorageAvailable, initLocalStorageWithMockData } from './redux/manageLocalStorage';
+
+// check localStorage
+if (!checkIfStorageAvailable('localStorage')) {
+  alert("loacal storage is unavaliable, sadly...")
+  console.log("loacal storage is unavaliable, sadly...")
+}
+
+initLocalStorageWithMockData()
 
 // CREATE STORE
 const store = createStore(

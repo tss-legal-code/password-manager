@@ -1,9 +1,7 @@
-import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setRecordBeingCreated } from "../redux/actions"
 import CreateUpdateRecord from "./CreateUpdateRecord"
 import Record from './Record'
-import {SignupForm} from './Formic'
 
 const Table = () => {
 
@@ -12,6 +10,9 @@ const Table = () => {
 
   // to display record-update-delete-form
   const idOfRecordBeingUpdated = useSelector(state => state.app.idOfRecordBeingUpdated)
+
+  // to display record-create-button
+  const isLoggedIn = useSelector(state => state.app.userId !== null)
 
   // to display record-create-form
   const isRecordBeingCreated = useSelector(state => state.app.isRecordBeingCreated)
@@ -33,13 +34,14 @@ const Table = () => {
           return (
             <Record key={String(each.id)} tableOrderNumber={index + 1} record={each} />)
         })
-        : <div className="row mt-3"><p className="text-center"> no passwords in database </p></div>}
+        : <div className="row mt-3 border-bottom"><p className="text-center"> no passwords in database </p></div>}
 
+      {isLoggedIn &&
       <div className="row mt-3">
         <div className="d-flex justify-content-end ">
           <button className="btn btn-primary border" onClick={() => dispatch(setRecordBeingCreated())}>create record</button>
         </div>
-      </div>
+      </div>}
       
       {/* show forms depending on state of variables in store */}
       {idOfRecordBeingUpdated && <CreateUpdateRecord />}

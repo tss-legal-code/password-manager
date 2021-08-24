@@ -1,12 +1,12 @@
-import { SET_RECORD_BEING_CREATED, SET_RECORD_BEING_UPDATED, UNSET_RECORD_BEING_CREATED, UNSET_RECORD_BEING_UPDATED } from "./types"
+import { LOGIN_USER, LOGOUT_USER, REGISTER_USER, SET_RECORD_BEING_CREATED, SET_RECORD_BEING_UPDATED, UNSET_RECORD_BEING_CREATED, UNSET_RECORD_BEING_UPDATED } from "./types"
 
 const initialState = {
     userId: null,
     userLogin: null,
     userPassword: null,
-    userEmail: null,
+
     idOfRecordBeingUpdated: null,
-    isRecordBeingCreated: false, 
+    isRecordBeingCreated: false,
 }
 
 const appReducer = (state = initialState, action) => {
@@ -24,16 +24,18 @@ const appReducer = (state = initialState, action) => {
         case UNSET_RECORD_BEING_CREATED:
             return { ...state, isRecordBeingCreated: false }
 
-        // case LOGIN:
-        //     return { ...state, userID: action.payload,  }
+        case LOGIN_USER:
+            return { ...state, userId: action.payload.id, userLogin: action.payload.login, userPassword: action.payload.password}
 
-        // case REGISTER:
+        case LOGOUT_USER:
+            return { ...state, userId: null,  userLogin: null, userPassword: null, idOfRecordBeingUpdated: null, isRecordBeingCreated: false }
+
+        // case REGISTER_USER:
         //     return { ...state, ...[action.payload] }
 
-        // case LOGOUT:
-        //     return { ...state, userID: null}
 
         default:
+            console.log('default app')
             return state
     }
 }

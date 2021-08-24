@@ -12,6 +12,6 @@ export const UNSET_RECORD_BEING_CREATED = "APP/UNSET_RECORD_BEING_CREATED"
 
 export const CREATE_RECORD = "PASSWORD/CREATE_RECORD"
 
-// export const LOGIN = "APP/LOGIN"
-// export const REGISTER = "APP/REGISTER"
-// export const LOGOUT = "APP/LOGOUT"
+export const LOGIN_USER = "APP/LOGIN"
+export const REGISTER_USER = "APP/REGISTER"
+export const LOGOUT_USER = "APP/LOGOUT"
