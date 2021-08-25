@@ -71,6 +71,12 @@ export const initLocalStorageWithMockData = () => {
                         "password": "dol#r-$it-@met"
                     }
                 ]
+            },
+            {
+                "id": 2,
+                "login": "user2@user.com",
+                "password": "user2@user.com",
+                "records": []
             }
         ],
         // this really refers to localStorage of client
@@ -86,9 +92,10 @@ export const createUserInLocalStorage = ({ login, password }) => {
     const temp = JSON.parse(localStorage.users)
 
     console.log(`temp:`, temp)
-
-    // console.log(`temp.map(el => el.id)`, temp.map(el => el.id))
-    const newUserId = Math.max(...temp.map(el => el.id)) + 1
+    
+    const newUserId = localStorage.users.length 
+                        ? Math.max(...temp.map(el => el.id)) + 1 
+                        : 1
 
     temp.push({
         "id": newUserId,

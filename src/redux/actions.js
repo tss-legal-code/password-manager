@@ -29,14 +29,24 @@ export const updateRecord = (payload) => {
 }
 
 export const deleteRecord = (id) => {
-    return (dispatch) => {
-        dispatch(unsetRecordBeingUpdated())
-        dispatch({
-            type: DELETE_RECORD,
-            payload: id
-        })
+    const confirmDeletion = window.confirm(`Do you confirm deletion?`)
+
+    if (confirmDeletion) {
+        return (dispatch) => {
+            dispatch(unsetRecordBeingUpdated())
+            dispatch({
+                type: DELETE_RECORD,
+                payload: id
+            })
+        }
     }
+    return (dispatch) => {
+        dispatch({
+        type: "DO_NOTHING"
+    })}
 }
+
+
 
 export const setRecordBeingCreated = () => {
     return (dispatch) => {

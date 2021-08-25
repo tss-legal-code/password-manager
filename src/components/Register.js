@@ -1,7 +1,12 @@
 import { Formik } from 'formik';
-import { createUserInLocalStorage, listTakenIDsLoginsAndPasswords } from "../redux/manageLocalStorage";
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { loginUser } from '../redux/actions';
+import { createUserInLocalStorage, getDataOfLoggedInUser, listTakenIDsLoginsAndPasswords } from "../redux/manageLocalStorage";
 
 const Register = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -45,6 +50,20 @@ const Register = () => {
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                         createUserInLocalStorage({login: values.login.trim(), password: values.password })
+
+                        const foundMatch = listTakenIDsLoginsAndPasswords()
+                            .filter(elem => {return elem.login === values.login.trim() && elem.password === values.password}) //array of [{}] returned
+                        if (!foundMatch.length) {
+                            alert("User with such login and/or passwsord does not exist.")
+                        }
+                        console.log(`foundMatch`, foundMatch) 
+                        console.log("getDataOfLoggedInUser(foundMatch[0].id)", getDataOfLoggedInUser(foundMatch[0].id))
+
+
+                        dispatch(loginUser(getDataOfLoggedInUser(foundMatch[0].id)))
+
+                        history.push("/");
+                        
                     }}
                 >
                     {({

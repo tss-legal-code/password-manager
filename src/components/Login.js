@@ -35,7 +35,7 @@ const Login = () => {
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                         const foundMatch = listTakenIDsLoginsAndPasswords()
-                            .filter(elem => {return elem.login === values.login && elem.password === values.password}) //array of [{}] returned
+                            .filter(elem => {return elem.login === values.login.trim() && elem.password === values.password}) //array of [{}] returned
                         if (!foundMatch.length) {
                             alert("User with such login and/or passwsord does not exist.")
                         }

@@ -27,7 +27,7 @@ const Record = ({ record, tableOrderNumber }) => {
         setRenderedAsPassword(
             renderedAsPassword === passwordPlaceholder
                 ? passwordPlaceholder
-                : passwordActual
+                : passwordActual 
         )
     }, [passwordActual])
 

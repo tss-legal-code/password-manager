@@ -13,7 +13,9 @@ const CreateUpdateRecord = () => {
 
     // if record is being created from scratch
     const isRecordBeingCreated = useSelector(state => state.app.isRecordBeingCreated)
-    const newRecordId = Math.max(...useSelector(state => state.password.passwords.map(element => element.id))) + 1
+    const doPasswordsExist = useSelector(state => state.password.passwords.length)
+    const possibleNextRecordId = Math.max(...useSelector(state => state.password.passwords.map(element => element.id))) + 1
+    const newRecordId = doPasswordsExist ?  possibleNextRecordId : 1
 
     // if record is being updated and or deleted
     const idOfRecordBeingUpdated = useSelector(state => state.app.idOfRecordBeingUpdated)
