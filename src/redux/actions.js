@@ -1,4 +1,4 @@
-import { CREATE_RECORD, DELETE_RECORD, LOGIN_USER, LOGOUT_USER, REGISTER_USER, SET_RECORD_BEING_CREATED, SET_RECORD_BEING_UPDATED, UNSET_RECORD_BEING_CREATED, UNSET_RECORD_BEING_UPDATED, UPDATE_RECORD } from "./types"
+import { CREATE_RECORD, DELETE_RECORD, LOGIN_USER, LOGOUT_USER, SET_RECORD_BEING_CREATED, SET_RECORD_BEING_UPDATED, UNSET_RECORD_BEING_CREATED, UNSET_RECORD_BEING_UPDATED, UPDATE_RECORD } from "./types"
 
 export const setRecordBeingUpdated = (id) => {
 
@@ -28,6 +28,13 @@ export const updateRecord = (payload) => {
     }
 }
 
+export const deleteRecordOnLogout = (id) => {
+    return {
+        type: DELETE_RECORD,
+        payload: id
+    }
+}
+
 export const deleteRecord = (id) => {
     const confirmDeletion = window.confirm(`Do you confirm deletion?`)
 
@@ -42,9 +49,11 @@ export const deleteRecord = (id) => {
     }
     return (dispatch) => {
         dispatch({
-        type: "DO_NOTHING"
-    })}
+            type: "DO_NOTHING"
+        })
+    }
 }
+
 
 
 
@@ -76,24 +85,15 @@ export const createRecord = (payload) => {
 
 export const loginUser = (payload) => {
 
-
-    console.log(`111payload`, payload)
-    console.log(`222payload.records`, payload.records)
-    console.log(`333{id: payload.id, login: payload.login, password: payload.password}`, { id: payload.id, login: payload.login, password: payload.password })
-
+    localStorage["authentificatedId"] = JSON.stringify(payload.id)
+    
     return (dispatch) => {
 
-        console.log("start dispatching///")
 
         payload.records.forEach(record => {
-            console.log("44dispatch CREATE_RECORD")
-            console.log(`55current-record`, record)
+        
             dispatch(createRecord(record))
         })
-
-        console.log("66dispatch LOGIN_USER")
-
-        console.log("77dispatch LOGIN_USER")
 
         dispatch({
             type: LOGIN_USER,
@@ -111,12 +111,4 @@ export const logoutUser = () => {
     }
 
 }
-
-// export const registerUser = (payload) => {
-
-//     return {
-//         type: REGISTER_USER,
-//         payload: payload
-//     }
-// }
 

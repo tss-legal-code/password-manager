@@ -40,7 +40,6 @@ const passwordReducer = (state = initialState, action) => {
             return {...state, passwords: state.passwords.filter(record=>record.id !== action.payload)}
 
         default:
-            console.log('default password')
             return state
     }
 }

@@ -79,13 +79,21 @@ export const initLocalStorageWithMockData = () => {
                 "records": []
             }
         ],
-        // this really refers to localStorage of client
-        "authentificatedId": null
+        // this part really refers to localStorage of client
+        "authentificatedId": 0
     }
+   
+     // add mock data only if no data is present
+    try {
+        JSON.parse(localStorage.users);
+        JSON.parse(localStorage.authentificatedId);
+      } catch (e) {
+        localStorage.users = JSON.stringify(mockData.users)
+        localStorage.authentificatedId = JSON.stringify(mockData.authentificatedId)
+      }
 
-    localStorage.clear()
-    localStorage.users = JSON.stringify(mockData.users)
-    localStorage.authentificatedId = JSON.stringify(mockData.authentificatedId)
+   
+    
 }
 
 export const createUserInLocalStorage = ({ login, password }) => {
@@ -93,7 +101,7 @@ export const createUserInLocalStorage = ({ login, password }) => {
 
     console.log(`temp:`, temp)
     
-    const newUserId = localStorage.users.length 
+    const newUserId = JSON.parse(localStorage.users).length 
                         ? Math.max(...temp.map(el => el.id)) + 1 
                         : 1
 
@@ -104,7 +112,7 @@ export const createUserInLocalStorage = ({ login, password }) => {
         "records": []
     })
     console.log('writing to local storage')
-    localStorage.users = JSON.stringify(temp)
+    localStorage.users = JSON.stringify(temp)     //перезалить на "фронт", да, затратно, но в нашем случае (без реального трафика по сети) так можно.
 
     localStorage.authentificatedId = JSON.stringify(newUserId)
 }
@@ -114,8 +122,8 @@ export const listTakenIDsLoginsAndPasswords = () => {
 }
 
 export const getDataOfLoggedInUser = (id) => {
-    console.log(`id`, id)
-    console.log(`JSON.parse(localStorage.users)`, JSON.parse(localStorage.users))
-    console.log(`JSON.parse(localStorage.users).filter(user => user.id === id)`, JSON.parse(localStorage.users).filter(user => user.id === id))
-    return JSON.parse(localStorage.users).filter(user => user.id == id)[0]  //array of [{}] returned
+    // console.log(`id =========`, id)
+    // console.log(`JSON.parse(localStorage.users)`, JSON.parse(localStorage.users))
+    // console.log(`JSON.parse(localStorage.users).filter(user => user.id === id)`, JSON.parse(localStorage.users).filter(user => user.id === id))
+    return JSON.parse(localStorage.users).filter(user => user.id === id)[0]  //array of [{}] returned
 }

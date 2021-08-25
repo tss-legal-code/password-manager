@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useHistory } from "react-router-dom"
-import { deleteRecord, logoutUser } from "../redux/actions"
+import { deleteRecordOnLogout, logoutUser } from "../redux/actions"
 
 const Header = () => {
 
@@ -17,7 +17,7 @@ const Header = () => {
         dispatch(logoutUser());
         history.push("/");
         tableData.forEach(record => {
-            dispatch(deleteRecord(record.id))
+            dispatch(deleteRecordOnLogout(record.id))
         })
     }
 
@@ -33,7 +33,7 @@ const Header = () => {
             </div>
             <div className="col d-flex justify-content-end">
                 {isLoggedIn && <Link to="/" ><button className="btn btn-outline-secondary border" onClick={handleUnexistingFeatureOfProfilePage}>{userLogin}</button></Link>}
-                {isLoggedIn && <Link to="/"><button className="btn btn-outline-primary border">dashboard</button></Link>}
+                <Link to="/"><button className="btn btn-outline-primary border"> dashboard </button></Link>
                 {!isLoggedIn && <Link to="/register"><button className="btn btn-outline-primary  border">register</button></Link>}
                 {!isLoggedIn && <Link to="/login" ><button className="btn btn-outline-primary  border">log in</button></Link>}
                 {isLoggedIn && <Link to="/" ><button className="btn btn-outline-primary border" onClick={() => handleLogout()}>log out</button></Link>}

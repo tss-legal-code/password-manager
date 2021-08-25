@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER, REGISTER_USER, SET_RECORD_BEING_CREATED, SET_RECORD_BEING_UPDATED, UNSET_RECORD_BEING_CREATED, UNSET_RECORD_BEING_UPDATED } from "./types"
+import { LOGIN_USER, LOGOUT_USER,  SET_RECORD_BEING_CREATED, SET_RECORD_BEING_UPDATED, UNSET_RECORD_BEING_CREATED, UNSET_RECORD_BEING_UPDATED } from "./types"
 
 const initialState = {
     userId: null,
@@ -24,18 +24,13 @@ const appReducer = (state = initialState, action) => {
         case UNSET_RECORD_BEING_CREATED:
             return { ...state, isRecordBeingCreated: false }
 
-        case LOGIN_USER:
+        case LOGIN_USER: //newly registered user gets automaticaly logged in
             return { ...state, userId: action.payload.id, userLogin: action.payload.login, userPassword: action.payload.password}
 
-        case LOGOUT_USER:
+        case LOGOUT_USER:  
             return { ...state, userId: null,  userLogin: null, userPassword: null, idOfRecordBeingUpdated: null, isRecordBeingCreated: false }
 
-        // case REGISTER_USER:
-        //     return { ...state, ...[action.payload] }
-
-
         default:
-            console.log('default app')
             return state
     }
 }

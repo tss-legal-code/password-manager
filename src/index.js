@@ -19,7 +19,9 @@ if (!checkIfStorageAvailable('localStorage')) {
   console.log("loacal storage is unavaliable, sadly...")
 }
 
-initLocalStorageWithMockData()
+  // localStorage.clear()  /////////////////////////////// CLEAR LOCAL STORAGE if app crashes
+  initLocalStorageWithMockData()
+
 
 // CREATE STORE
 const store = createStore(

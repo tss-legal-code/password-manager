@@ -46,7 +46,10 @@ const Table = () => {
         <div className="row mt-3 border-bottom"><p className="text-center"> no passwords in database </p></div>}
 
        {!isLoggedIn &&
-        <div className="row mt-3  border-bottom bg-warning"><p className="text-center">to start using this password manager you need to register and/or log in (see upper right corner) </p></div>}
+        <div className="row mt-3  border-bottom bg-warning">
+          <p className="text-center">to start using this password manager you need to register and/or log in (see upper right corner) </p>
+          <p className="text-center">you may try default "login": "user@user.com" and "password": "user@user.com"</p>
+        </div>}
 
 
 

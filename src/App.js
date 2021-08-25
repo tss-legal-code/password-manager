@@ -3,8 +3,18 @@ import Header from './components/Header'
 import Table from './components/Table';
 import Register from './components/Register';
 import Login from './components/Login';
-
+import { loginUser } from "./redux/actions";
+import { useDispatch } from "react-redux";
+import {getDataOfLoggedInUser} from './redux/manageLocalStorage'
 function App() {
+
+  // restore previously logged in user
+  const dispatch = useDispatch()
+
+  if (JSON.parse(localStorage.authentificatedId) !== null) {
+    // console.log(`JSON.parse(localStorage.authentificatedId)`, JSON.parse(localStorage.authentificatedId) === null )
+    dispatch(loginUser( getDataOfLoggedInUser (JSON.parse(localStorage.authentificatedId))))
+  }
 
    return (
     <Router>
