@@ -10,11 +10,17 @@ function App() {
 
   // restore previously logged in user
   const dispatch = useDispatch()
+  
 
   if (JSON.parse(localStorage.authentificatedId) !== null) {
     // console.log(`JSON.parse(localStorage.authentificatedId)`, JSON.parse(localStorage.authentificatedId) === null )
+    console.log(`Number(localStorage.authentificatedId))`, Number(localStorage.authentificatedId))
+    console.log(`getDataOfLoggedInUser (JSON.parse(localStorage.authentificatedId)) --------------`, getDataOfLoggedInUser (JSON.parse(localStorage.authentificatedId)) )
     dispatch(loginUser( getDataOfLoggedInUser (JSON.parse(localStorage.authentificatedId))))
   }
+
+  // console.log('localStorage.users', localStorage.users)
+
 
    return (
     <Router>

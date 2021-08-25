@@ -84,6 +84,8 @@ export const initLocalStorageWithMockData = () => {
     }
    
      // add mock data only if no data is present
+
+    
     try {
         JSON.parse(localStorage.users);
         JSON.parse(localStorage.authentificatedId);
@@ -91,8 +93,7 @@ export const initLocalStorageWithMockData = () => {
         localStorage.users = JSON.stringify(mockData.users)
         localStorage.authentificatedId = JSON.stringify(mockData.authentificatedId)
       }
-
-   
+  
     
 }
 
@@ -122,8 +123,8 @@ export const listTakenIDsLoginsAndPasswords = () => {
 }
 
 export const getDataOfLoggedInUser = (id) => {
-    // console.log(`id =========`, id)
-    // console.log(`JSON.parse(localStorage.users)`, JSON.parse(localStorage.users))
-    // console.log(`JSON.parse(localStorage.users).filter(user => user.id === id)`, JSON.parse(localStorage.users).filter(user => user.id === id))
+    console.log(`id =========`, id)
+    console.log(`JSON.parse(localStorage.users)`, JSON.parse(localStorage.users))
+    console.log(`JSON.parse(localStorage.users).filter(user => user.id === id)`, JSON.parse(localStorage.users).filter(user => user.id === id))
     return JSON.parse(localStorage.users).filter(user => user.id === id)[0]  //array of [{}] returned
 }

@@ -29,7 +29,7 @@ const Header = () => {
     return (
         <div className="row ">
             <div className="col d-flex justify-content-start">
-                <h1>Password Manager</h1>
+                <h2>Password Manager</h2>
             </div>
             <div className="col d-flex justify-content-end">
                 {isLoggedIn && <Link to="/" ><button className="btn btn-outline-secondary border" onClick={handleUnexistingFeatureOfProfilePage}>{userLogin}</button></Link>}

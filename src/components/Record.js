@@ -34,6 +34,15 @@ const Record = ({ record, tableOrderNumber }) => {
     // to start editing a record...
     const dispatch = useDispatch()
 
+    const currentState = useSelector(state => state.password.passwords)
+
+    const handleDeleteRecord = (id) => {
+        dispatch(deleteRecord(id))
+
+        // localStorage.users = JSON.stringify(currentState)
+        // console.log(`localStorage.users`, JSON.parse(localStorage.users))
+    }
+
     return (
         <div>
             <div className="row border-bottom">
@@ -47,7 +56,7 @@ const Record = ({ record, tableOrderNumber }) => {
                             <div className="col btn btn-success border">copy</div>
                         </CopyToClipboard>
                         <div className="col btn  btn-warning border" onClick={() => dispatch(setRecordBeingUpdated(record.id))}>update</div>
-                        <div className="col  btn btn-danger border" onClick={() => dispatch(deleteRecord(record.id))}>delete</div>
+                        <div className="col  btn btn-danger border" onClick={() => handleDeleteRecord(record.id)}>delete</div>
 
                     </div>
                 </div>

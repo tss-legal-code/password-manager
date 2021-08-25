@@ -17,3 +17,5 @@ export const LOGIN_USER = "APP/LOGIN"
 // export const REGISTER_USER = "APP/REGISTER" //the same as LOGIN_USER
 
 export const LOGOUT_USER = "APP/LOGOUT"
+
+// export const UPDATE_AT_STARTUP = "PASSWORD/UPDATE_AT_STARTUP"

@@ -19,6 +19,13 @@ export const unsetRecordBeingUpdated = () => {
 
 // update password records
 export const updateRecord = (payload) => {
+    // let newLocalStorageUserState = JSON.parse(localStorage.users).map(
+    //     user => user.id !== JSON.parse(localStorage.authentificatedId) ? user : user.records.map(
+    //         record => record.id !== payload.id ? record : payload)
+    // )
+    // console.log(`newLocalStorageUserState (when updating)`, newLocalStorageUserState)
+    // localStorage.users = JSON.stringify(newLocalStorageUserState)
+
     return (dispatch) => {
         dispatch(unsetRecordBeingUpdated())
         dispatch({
@@ -39,6 +46,14 @@ export const deleteRecord = (id) => {
     const confirmDeletion = window.confirm(`Do you confirm deletion?`)
 
     if (confirmDeletion) {
+        // let newLocalStorageUserState = JSON.parse(localStorage.users).map(
+        //     user => user.id !== JSON.parse(localStorage.authentificatedId) ? user : user.records.map(
+        //         record => {if (record.id !== id) {return record}  })) 
+        
+        // console.log(`newLocalStorageUserState (when deleting)`, newLocalStorageUserState)
+        // // localStorage.users = JSON.stringify(newLocalStorageUserState)
+
+
         return (dispatch) => {
             dispatch(unsetRecordBeingUpdated())
             dispatch({
@@ -54,7 +69,15 @@ export const deleteRecord = (id) => {
     }
 }
 
-
+// export const updateStoreAtStartup = () => {
+//     // payload = localStorage.users
+//     return (dispatch) => {
+//         dispatch({
+//             type: UPDATE_AT_STARTUP,
+//             payload: payload
+//         })
+//     }
+// }
 
 
 export const setRecordBeingCreated = () => {
@@ -84,14 +107,15 @@ export const createRecord = (payload) => {
 }
 
 export const loginUser = (payload) => {
+    if (localStorage.authentificatedId != JSON.stringify(payload.id)) {
+        localStorage.authentificatedId = JSON.stringify(payload.id)
+    }
 
-    localStorage["authentificatedId"] = JSON.stringify(payload.id)
-    
     return (dispatch) => {
 
 
         payload.records.forEach(record => {
-        
+
             dispatch(createRecord(record))
         })
 

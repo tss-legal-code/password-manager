@@ -20,6 +20,7 @@ const CreateUpdateRecord = () => {
     // if record is being updated and or deleted
     const idOfRecordBeingUpdated = useSelector(state => state.app.idOfRecordBeingUpdated)
     const currentRecord = useSelector(state => state.password.passwords.filter(record => record.id === idOfRecordBeingUpdated))[0]
+    const currentState = useSelector(state => state.password.passwords)
 
     // for purposes of render of actual values after updating and saving them
     useEffect(() => {
@@ -45,6 +46,10 @@ const CreateUpdateRecord = () => {
             appointment: tempAppointment,
             password: tempPassword
         }))
+
+        // localStorage.users = JSON.stringify(currentState)
+        // console.log(`localStorage.users`, JSON.parse(localStorage.users))
+
     }
 
     const submitUnsetRecordBeingCreated = (e) => {
@@ -69,7 +74,9 @@ const CreateUpdateRecord = () => {
             appointment: tempAppointment,
             password: tempPassword
         }))
-
+        
+        // localStorage.users = JSON.stringify(currentState)
+        // console.log(`localStorage.users`, JSON.parse(localStorage.users))
     }
 
     //functiona specific to action or updata/create
