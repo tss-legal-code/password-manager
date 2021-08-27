@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setRecordBeingCreated } from "../redux/actions"
 import CreateUpdateRecord from "./CreateUpdateRecord"

@@ -17,7 +17,7 @@ function App() {
     // localStorage.clear()
     checkOrInitDefaultLocalStorageContent()
 
-    if (GET_LOGGED_ID() !== null) {
+    if (GET_LOGGED_ID() !== null && GET_LOGGED_ID() !== "logged out") {
       dispatch(
         loginUser(
           GET_USERDATA_OF_LOGGED_USER()

@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { loginUser } from '../redux/actions';
-import { checkIfLoginIsUnique, registerUserAndSetLoggedInAndReturnUserData } from '../redux/localStorageActions';
+import { checkIfLoginIsUnique, GET_USERDATA_OF_LOGGED_USER, registerUserAndSetLoggedInAndReturnUserData } from '../redux/localStorageActions';
 
 const Register = () => {
     const history = useHistory();
@@ -12,6 +12,7 @@ const Register = () => {
         <>
             <h1 className="text-center border">REGISTER NEW USER</h1>
             <h4 className="text-center">to register on this site, please, enter your e-mail (as login) and a password of your new account (twice)</h4>
+            
             <div className="container mt-5 d-flex justify-content-center">
                 <Formik
                     initialValues={{ login: '', password: '', passwordRetype: '' }}
@@ -24,7 +25,6 @@ const Register = () => {
                         ) {
                             errors.login = 'Invalid login address';
                         }
-
                         if (checkIfLoginIsUnique(values.login.trim())) {
                             errors.login = 'email (as login) login you entered is already taken, please, enter another one';
                         }
@@ -48,17 +48,21 @@ const Register = () => {
                         return errors;
                     }}
                     onSubmit={(values, { setSubmitting }) => {
-                        
-                        dispatch(
-                            loginUser(
-                                registerUserAndSetLoggedInAndReturnUserData(
-                                    values.login.trim(),
-                                    values.password.trim()
-                                )
-                            )
+                      
+                        registerUserAndSetLoggedInAndReturnUserData(
+                            values.login.trim(),
+                            values.password.trim()
                         )
 
-                        history.push("/");
+                        dispatch(
+                            loginUser(
+                                GET_USERDATA_OF_LOGGED_USER()
+                            )
+                        )
+                        
+                        history.push("/")
+
+
 
                     }}
                 >

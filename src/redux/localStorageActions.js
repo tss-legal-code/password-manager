@@ -80,10 +80,8 @@ export const SET = (key, value) => {
 export const GET_LOGGED_ID = () => GET(LOGGED_IN) 
 export const GET_DB = () => GET(USERS_DB)
 
-export const SET_DB = (value) => {
-    console.log(`writing value=${value} to DB: `, value)
-    SET(USERS_DB, value)
-}
+export const SET_DB = (value) => SET(USERS_DB, value)
+
 export const SET_LOGGED_ID = (value) => SET(LOGGED_IN, value)
 
 // deletion from localStorage is not implemented as is not accessible from page ...
@@ -110,7 +108,7 @@ export const checkOrInitDefaultLocalStorageContent = () => {
 
     // check if 'localStorage' has valid content for key 'previouslyLoggedUserId', otherwise 'upload' default content
     // deem it as our client user ID, which we use to upload previously saved client's database of passwords into REDUX STORAGE
-    if (!GET_LOGGED_ID()) SET_LOGGED_ID(DEFAULT_LOGGED_ID)
+    if (!GET_LOGGED_ID() || !GET_LOGGED_ID() === "logged out") SET_LOGGED_ID(DEFAULT_LOGGED_ID)
 }
 
 export const GET_USERDATA_OF_LOGGED_USER = () => {
@@ -133,67 +131,31 @@ const getActualListOfCredentials = () => GET_DB().map(userDataSet => ({ 'id': us
 
 export const checkIfLoginIsUnique = (login) => {
     // (before registration) check login for uniqueness => if it is unique, then boolean 'true' is returned
-    if (!login) throw new Error("login was not specified for checking its uniqueness")
-    return getActualListOfCredentials().filter(datatset => datatset.login === login).length === 1 ? true : false
+    const passText = getActualListOfCredentials().filter(datatset => datatset.login === login).length === 1 
+    return passText ? true : false
 }
 
 
 export const getUserDataForGivenCredentials = (login, password) => {
     // (before logging in) check both login and password to match with any existing user => if true -  userData object for matching user is returned
-    if (!login || !password) throw new Error("login and\or password were not specified for checking credentials match")
+    if (!login || !password) throw new Error("login and / or password were not specified for checking credentials match")
     const searchResult = getActualListOfCredentials().filter(datatset => datatset.login === login && datatset.password === password)
-    return searchResult.length === 1 ? searchResult[0] : null
+    return searchResult.length === 1 ? searchResult[0].id : null
 }
 
 export const registerUserAndSetLoggedInAndReturnUserData = (login, password) => {
     // after job is done -- returns userData object  of new user to dispatch it later in REDUX
     // в нашем случае (без реального трафика по сети) можно без оптимизаций
+    console.log(`login, password`, login, password)
     const id = generateNextUserId.next().value
+    console.log(`ID::::::::::::::::::::`, id)
     const newUserData = {
         "id": id,
         "login": login,
         "password": password,
         "records": []
     }
-    SET_DB(GET_DB().push(newUserData))
+    console.log(`newUserData`, newUserData)
+    SET_DB(GET_DB().concat(newUserData))
     SET_LOGGED_ID(id)
-    return newUserData
 }
-
-
-
-
-
-
-
-// login
-                        // const foundMatch = listTakenIDsLoginsAndPasswords()
-                        //     .filter(elem => {return elem.login === values.login.trim() && elem.password === values.password}) //array of [{}] returned
-                        // if (!foundMatch.length) {
-                        //     alert("User with such login and/or passwsord does not exist.")
-                        // }
-
-                        // console.log(`foundMatch`, foundMatch) 
-                        // console.log("getDataOfLoggedInUser(foundMatch[0].id)", getDataOfLoggedInUser(foundMatch[0].id))
-
-
-                        // dispatch(loginUser(getDataOfLoggedInUser(foundMatch[0].id))) // take first and only element
-
-//register
-   // createUserInLocalStorage({login: values.login.trim(), password: values.password })
-
-                        // const foundMatch = listTakenIDsLoginsAndPasswords()
-                        //     .filter(elem => {return elem.login === values.login.trim() && elem.password === values.password}) //array of [{}] returned
-                        // if (!foundMatch.length) {
-                        //     alert("User with such login and/or passwsord does not exist.")
-                        // }
-                        // console.log(`foundMatch`, foundMatch) 
-                        // console.log("getDataOfLoggedInUser(foundMatch[0].id)", getDataOfLoggedInUser(foundMatch[0].id))
-
-
-                        // dispatch(loginUser(getDataOfLoggedInUser(foundMatch[0].id)))
-
-                        // history.push("/");
-
-
-                        // console.log("REGISTERING...")

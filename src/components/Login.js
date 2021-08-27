@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { loginUser } from '../redux/actions';
-import { getUserDataForGivenCredentials } from '../redux/localStorageActions';
+import { getUserDataForGivenCredentials, GET_USERDATA_OF_LOGGED_USER, SET_LOGGED_ID } from '../redux/localStorageActions';
 
 const Login = () => {
     const dispatch = useDispatch()
@@ -12,6 +12,7 @@ const Login = () => {
         <>
             <h1 className="text-center border">LOG IN</h1>
             <h4 className="text-center">to use this site, please, enter your e-mail (as login) and a password of your "Password manager" account</h4>
+            <h6 className="text-center">(you may try (as both login and andpassword): "user@user.com", "user1@user.com", "user2@user.com")</h6>
             <div className="container mt-5 d-flex justify-content-center">
                 <Formik
                     initialValues={{ login: '', password: '' }}
@@ -34,21 +35,23 @@ const Login = () => {
                         return errors;
                     }}
                     onSubmit={(values, { setSubmitting }) => {
-                        
-                        console.log("LOGGING IN...")
 
-                        dispatch(
-                            loginUser(
-                                getUserDataForGivenCredentials(
-                                    values.login.trim(),
-                                    values.password.trim()
-                                )
-                            )
+                        const passTest = getUserDataForGivenCredentials(
+                            values.login.trim(),
+                            values.password.trim()
                         )
 
-                        history.push("/");
-
-
+                        if (passTest === null) {
+                            alert("you entered wrong password and/or login")
+                            return
+                        }
+                        SET_LOGGED_ID(passTest)
+                        dispatch(
+                            loginUser(
+                                GET_USERDATA_OF_LOGGED_USER()
+                            )
+                        )
+                        history.push("/")
                     }}
                 >
                     {({

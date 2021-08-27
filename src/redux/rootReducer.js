@@ -7,7 +7,7 @@ import passwordReducer from "./passwordReducer";
 
 // combined reducer
 const rootReducer = combineReducers({
-    password: passwordReducer,
+    password: passwordReducer, // here the objects of 'records' are stored
     app: appReducer,
 })
 

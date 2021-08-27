@@ -1,4 +1,4 @@
-import { GET_DB, GET_LOGGED_ID, GET_USERDATA_OF_LOGGED_USER, SET_DB, SET_LOGGED_ID } from "./localStorageActions"
+import { GET_DB, GET_LOGGED_ID, SET_DB, SET_LOGGED_ID } from "./localStorageActions"
 import { CREATE_RECORD, DELETE_RECORD, DOWNLOAD_RECORD, LOGIN_USER, LOGOUT_USER, SET_RECORD_BEING_CREATED, SET_RECORD_BEING_UPDATED, UNSET_RECORD_BEING_CREATED, UNSET_RECORD_BEING_UPDATED, UPDATE_RECORD } from "./types"
 
 export const setRecordBeingUpdated = (id) => {
@@ -74,11 +74,6 @@ export const deleteRecord = (id) => {
             )
         )
 
-
-
-
-
-
         return (dispatch) => {
             dispatch(unsetRecordBeingUpdated())
             dispatch({
@@ -138,7 +133,8 @@ export const createRecord = (payload) => {
 
 
 export const loginUser = (payload) => {
-    return (dispatch) => {
+    
+     return (dispatch) => {
         if (payload.records.length > 0) {
             payload.records.forEach(
                 record => {
@@ -158,7 +154,7 @@ export const loginUser = (payload) => {
 
 
 export const logoutUser = () => {
-    SET_LOGGED_ID(null)
+    SET_LOGGED_ID("logged out")
     return (dispatch) => {
         dispatch({
             type: LOGOUT_USER
