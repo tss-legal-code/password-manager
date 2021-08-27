@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { loginUser } from '../redux/actions';
-import { getDataOfLoggedInUser, listTakenIDsLoginsAndPasswords } from '../redux/manageLocalStorage';
+import { getUserDataForGivenCredentials } from '../redux/localStorageActions';
 
 const Login = () => {
     const dispatch = useDispatch()
@@ -17,37 +17,37 @@ const Login = () => {
                     initialValues={{ login: '', password: '' }}
                     validate={values => {
                         const errors = {};
-                        if (!values.login) {
+                        if (!values.login.trim()) {
                             errors.login = 'Required';
                         } else if (
-                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.login)
+                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.login.trim())
                         ) {
                             errors.login = 'Invalid login address';
                         }
-                        if (!values.password) {
+                        if (!values.password.trim()) {
                             errors.password = 'Required';
                         } else if (
-                            values.password.length < 3
+                            values.password.trim().length < 3
                         ) {
-                            errors.password = 'Invalid password (must be 3+ chars)';
+                            errors.password = 'Invalid password (must be 3+ printable chars)';
                         }
                         return errors;
                     }}
                     onSubmit={(values, { setSubmitting }) => {
-                        const foundMatch = listTakenIDsLoginsAndPasswords()
-                            .filter(elem => {return elem.login === values.login.trim() && elem.password === values.password}) //array of [{}] returned
-                        if (!foundMatch.length) {
-                            alert("User with such login and/or passwsord does not exist.")
-                        }
                         
-                        console.log(`foundMatch`, foundMatch) 
-                        console.log("getDataOfLoggedInUser(foundMatch[0].id)", getDataOfLoggedInUser(foundMatch[0].id))
+                        console.log("LOGGING IN...")
 
+                        dispatch(
+                            loginUser(
+                                getUserDataForGivenCredentials(
+                                    values.login.trim(),
+                                    values.password.trim()
+                                )
+                            )
+                        )
 
-                        dispatch(loginUser(getDataOfLoggedInUser(foundMatch[0].id))) // take first and only element
-                        
                         history.push("/");
-                        
+
 
                     }}
                 >

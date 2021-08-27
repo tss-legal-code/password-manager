@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { loginUser } from '../redux/actions';
-import { createUserInLocalStorage, getDataOfLoggedInUser, listTakenIDsLoginsAndPasswords } from "../redux/manageLocalStorage";
+import { checkIfLoginIsUnique, registerUserAndSetLoggedInAndReturnUserData } from '../redux/localStorageActions';
 
 const Register = () => {
     const history = useHistory();
@@ -24,46 +24,42 @@ const Register = () => {
                         ) {
                             errors.login = 'Invalid login address';
                         }
-                     
-                        if (listTakenIDsLoginsAndPasswords().filter(taken => taken.login === values.login.trim())
-                                       .length > 0) {
+
+                        if (checkIfLoginIsUnique(values.login.trim())) {
                             errors.login = 'email (as login) login you entered is already taken, please, enter another one';
                         }
 
                         if (!values.password) {
                             errors.password = 'Required';
-                        } else if (values.password.length < 3) {
-                            errors.password = 'Invalid password (must be 3+ chars)';
+                        } else if (values.password.trim().length < 3) {
+                            errors.password = 'Invalid password (must be 3+ printable chars)';
                         }
 
                         if (!values.passwordRetype) {
                             errors.passwordRetype = 'Required';
-                        } else if (values.passwordRetype.length < 3) {
-                            errors.passwordRetype = 'Invalid password (must be 3+ chars)';
+                        } else if (values.passwordRetype.trim().length < 3) {
+                            errors.passwordRetype = 'Invalid password (must be 3+ printable chars)';
                         }
 
-                        if (values.password !== values.passwordRetype) {
+                        if (values.password.trim() !== values.passwordRetype.trim()) {
                             errors.passwordRetype = "Both passwords must match"
                         }
 
                         return errors;
                     }}
                     onSubmit={(values, { setSubmitting }) => {
-                        createUserInLocalStorage({login: values.login.trim(), password: values.password })
-
-                        const foundMatch = listTakenIDsLoginsAndPasswords()
-                            .filter(elem => {return elem.login === values.login.trim() && elem.password === values.password}) //array of [{}] returned
-                        if (!foundMatch.length) {
-                            alert("User with such login and/or passwsord does not exist.")
-                        }
-                        console.log(`foundMatch`, foundMatch) 
-                        console.log("getDataOfLoggedInUser(foundMatch[0].id)", getDataOfLoggedInUser(foundMatch[0].id))
-
-
-                        dispatch(loginUser(getDataOfLoggedInUser(foundMatch[0].id)))
+                        
+                        dispatch(
+                            loginUser(
+                                registerUserAndSetLoggedInAndReturnUserData(
+                                    values.login.trim(),
+                                    values.password.trim()
+                                )
+                            )
+                        )
 
                         history.push("/");
-                        
+
                     }}
                 >
                     {({

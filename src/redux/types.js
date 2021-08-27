@@ -14,6 +14,8 @@ export const CREATE_RECORD = "PASSWORD/CREATE_RECORD"
 
 export const LOGIN_USER = "APP/LOGIN"
 
+export const DOWNLOAD_RECORD = "APP/DOWNLOAD_RECORD"
+
 // export const REGISTER_USER = "APP/REGISTER" //the same as LOGIN_USER
 
 export const LOGOUT_USER = "APP/LOGOUT"
