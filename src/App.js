@@ -23,7 +23,7 @@ function App() {
           GET_USERDATA_OF_LOGGED_USER()
         )
       )
-    }
+    } 
 
   }, [])
 
